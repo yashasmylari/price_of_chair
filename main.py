@@ -1,16 +1,10 @@
-# This is a sample Python script.
+import requests
+from bs4 import BeautifulSoup
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+request = requests.get("https://www.amazon.de/-/en/gp/product/B07T83CDRD?pf_rd_r=SH6MM453EPBHH0ZNSNVV&pf_rd_p=f6634045-2cd8-4654-8338-b9246a89c6f1")
+content = request.content
+soup = BeautifulSoup(content, "html.parser")
+element = soup.find("span", {"id":"priceblock_saleprice", "class":"a-size-medium a-color-price priceBlockSalePriceString" })
+print(element.text)
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+#<span id="priceblock_saleprice" class="a-size-medium a-color-price priceBlockSalePriceString">€24.99</span>
